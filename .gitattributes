@@ -1,0 +1,5 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+#treat psd1 files as text
+*.psd1 text
