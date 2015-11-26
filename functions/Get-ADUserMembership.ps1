@@ -1,4 +1,6 @@
 function Get-ADUserMembership {
+
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
         [String[]]$SamAccountName
