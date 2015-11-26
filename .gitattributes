@@ -3,3 +3,4 @@
 
 #treat psd1 files as text
 *.psd1 text
+*.ps1 text
