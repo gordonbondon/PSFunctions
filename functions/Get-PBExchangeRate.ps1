@@ -10,16 +10,19 @@ Multiplies this rate by supplied int
 Specify amount of dollars to convert
 
 .EXAMPLE
-Get-PBExchangeRate -USD 20
+Get-PBExchangeRate -Currency USD 20
 Converts USD to UAH and returns amount of UAH
 #>
 function Get-PBExchangeRate {
-	[CmdletBinding()]
+	#[CmdletBinding()]
 	param(
 		#[Parameter(Mandatory=$true)]
-		[double]$USD = 1.0
+		[double]$Amount = 1.0,
+
+		[ValidateSet('USD', 'EUR')]
+		[string]$Currency = 'USD'
 	)
-	
+
 	try
 	{
 		$uri = "https://privatbank.ua/"
@@ -27,17 +30,21 @@ function Get-PBExchangeRate {
 		$html = Invoke-WebRequest -Uri $uri
 		$tr = $html.ParsedHtml.getElementById("selectByCard").childNodes | Where-Object { $_.tagName -eq "tr" }
 		$td = $tr.childNodes | Where-Object { $_.tagName -eq "td" }
-		
+
 		#Collect all data from this table (for future use - converting values for all currency types)
 		$course = @()
 		foreach ($item in $td) { $course += $item.innerText }
-		#Get USD/UAH buy rate - number 5 in table
-		$usdexch = $course.Get(5) -as [double]
+		#Get USD/UAH buy rate - number 5 for USD, number 2 for EUR
+		switch ($Currency) {
+			'USD'	{ $exch = $course.Get(5) -as [double] }
+			'EUR'	{ $exch = $course.Get(2) -as [double] }
+		}
+
 		#Multiply by amount
-		$result = $USD * $usdexch
-		Write-Output "Exchange rate: $usdexch"
+		$result = $Amount * $exch
+		Write-Output "Exchange rate: $exch"
 		Write-Output "UAH $result"
 	} catch [System.Exception]	{
 		Write-Error -Message "https://privatbank.ua/ is not accessible" -Category ConnectionError
-	}	
+	}
 } ; New-Alias -Name pb -Value Get-PBExchangeRate
