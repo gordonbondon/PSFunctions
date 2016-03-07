@@ -7,12 +7,12 @@ function Search-History {
         [Parameter(Mandatory=$false)]
         [switch]$Full
     )
-    $commands = get-history |?{$_.commandline -match $regex}
+    $commands = Get-History -Count $MaximumHistoryCount |?{$_.commandline -match $regex}
     if ($full) {
         $commands |ft *
     }
     else {
-        foreach ($command in ($commands |select -ExpandProperty commandline)) {
+        foreach ($command in ($commands | select -ExpandProperty commandline)) {
             # This ensures that only the first line is shown of a multiline command
             # You can always get the full command using get-history or you can fork and remove this from the gist
             if ($command -match '\r\n') {
