@@ -1,9 +1,9 @@
-﻿<#
+<#
 .SYNOPSIS
 Deletes DNS records by owner
 
 .DESCRIPTION
-Searches for non static DNS records from selected zone and scope. 
+Searches for non static DNS records from selected zone and scope.
 Makes a lookup in DC=levi9.com,CN=MicrosoftDNS,DC=DomainDnsZones,DC=levi9,DC=com to find matching items.
 Gets ACL for this records and if record is owned by itself or by provided Owner deletes corresponding DNS record.
 
@@ -13,7 +13,7 @@ This cmdlet is usefull when you've changed DHCP server configuration and dynamic
 Specify zone name
 
 .PARAMETER ZoneScope
-Specify part of your scope. Like '10.100.' 
+Specify part of your scope. Like '10.100.'
 
 .PARAMETER Owner
 Specify Owner name you want to delete. Like 'Administrator'
@@ -23,7 +23,7 @@ Set true or false to set if you want to delete self owned records or not.
 
 .EXAMPLE
 Remove-DNSRecordByOwner -ZoneName 'zone.com' -ZoneScope '10.100.' -Owner 'Administrator' -Self $false
-Deletes records from zone.com zone and 10.100. scope that are owned by Administrator account, but not self owned. 
+Deletes records from zone.com zone and 10.100. scope that are owned by Administrator account, but not self owned.
 #>
 
 function Remove-DNSRecordByOwner {
@@ -50,7 +50,7 @@ function Remove-DNSRecordByOwner {
     foreach ($record in $records){
         $item = Get-ChildItem -Path $path | ?{$_.Name -like "$($record.HostName)"}
         $itemowner = (Get-Acl -Path "ActiveDirectory:://RootDSE/$($item.DistinguishedName)").Owner
-        
+
         if ($Self -and $itemowner -like "*$($record.HostName)*"){
             $match = $true
         }
@@ -67,5 +67,4 @@ function Remove-DNSRecordByOwner {
         #reset match
         $match = $false
     }
-    
 }
