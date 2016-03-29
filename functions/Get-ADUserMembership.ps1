@@ -5,7 +5,10 @@ function Get-ADUserMembership {
         [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
         [String[]]$SamAccountName
     )
-
+    Begin {
+        $result = @()    
+    }    
+    
     Process {
         foreach ($user in $SamAccountName) {
             #dsquery returns last additional empty string, remove it
@@ -14,8 +17,12 @@ function Get-ADUserMembership {
             $groups = $groups | % {$_ -replace '"', ""}
             foreach ($group in $groups)
             {
-                Get-ADGroup -Filter * -SearchBase $group
+                $result += Get-ADGroup -Filter * -SearchBase $group
             }
         }
+    }
+
+    End {
+        $result | select Name, DistinguishedName | sort Name
     }
 }
