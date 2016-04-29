@@ -1,19 +1,3 @@
-<#
-.SYNOPSIS
-Get sub OUs
-
-.DESCRIPTION
-Specify parent OUname and get its sub-OUs Disinguishedname parameters in hierarchial display
-
-.PARAMETER OUName
-Specify parent OU name
-
-.EXAMPLE
-Get-OUs Kiev
-Displays all sub-ous for Kiev OU if there is only one OU with this name
-
-#>
-
 #helper function
 function Show-SubOUs {
     param (
@@ -34,6 +18,20 @@ function Show-SubOUs {
 
 #main function
 function Get-OUs {
+<#
+.SYNOPSIS
+Get sub OUs
+
+.DESCRIPTION
+Specify parent OUname and get its sub-OUs Disinguishedname parameters in hierarchial display
+
+.PARAMETER OUName
+Specify parent OU name
+
+.EXAMPLE
+Get-OUs Kiev
+Displays all sub-ous for Kiev OU if there is only one OU with this name
+#>
     [CmdletBinding()]
     param (
          [Parameter(Mandatory = $true)]
