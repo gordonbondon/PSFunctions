@@ -68,7 +68,7 @@ Set-ADComputerManagedBy -SearchBase "OU=Users,DC=domain,DC=com" -FilePath C:\use
         #foreach users find PCs with matching name and store to variable
         $match = ($user.SamAccountName).Replace('.', '') + '*'
 
-        $computers = Get-ADComputer -Filter 'Name -like $match'
+        $computers = Get-ADComputer -Filter 'Name -like $match' -SearchBase $ComputersOU
 
         #if no PCs found output username to file and to console to be added manually
         if ($computers -eq $null) {
