@@ -1,0 +1,18 @@
+<#
+.SYNOPSIS
+
+.DESCRIPTION
+
+.PARAMETER
+
+.EXAMPLE
+
+#>
+function ##FunctionName## {
+    [CmdletBinding()]
+    param(
+        #[Parameter()]
+        #
+    )
+
+}
