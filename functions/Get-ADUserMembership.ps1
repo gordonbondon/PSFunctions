@@ -17,12 +17,8 @@ function Get-ADUserMembership {
             $groups = $groups | % {$_ -replace '"', ""}
             foreach ($group in $groups)
             {
-                $result += Get-ADGroup -Filter * -SearchBase $group
+                Get-ADGroup -Filter * -SearchBase $group | select SamAccountName, distinguishedName
             }
         }
-    }
-
-    End {
-        $result | select Name, DistinguishedName | sort Name
     }
 }
