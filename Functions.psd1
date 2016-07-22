@@ -66,7 +66,19 @@ Description = 'Various functions'
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = 'Get-ADUserMembership', 'Get-DHCPLeaseByName', 'Get-MOTD', 'Get-OUs', 'Get-PBExchangeRate', 'Get-WhoIs', 'Remove-DNSRecordByOwner', 'Search-ADComputer', 'Search-ADUser', 'Search-History', 'Set-ADComputerManagedBy', 'New-FunctionFile', 'Get-VISession'
+FunctionsToExport = 'Get-ADUserMembership',
+                    'Get-DHCPLeaseByName',
+                    'Get-MOTD',
+                    'Get-OUs',
+                    'Get-PBExchangeRate',
+                    'Get-WhoIs',
+                    'Remove-DNSRecordByOwner',
+                    'Search-ADComputer',
+                    'Search-ADUser',
+                    'Search-History',
+                    'Set-ADComputerManagedBy',
+                    'New-FunctionFile',
+                    'Get-VISession'
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'
