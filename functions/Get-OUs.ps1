@@ -38,18 +38,21 @@ Displays all sub-ous for Kiev OU if there is only one OU with this name
     [CmdletBinding()]
     param (
          [Parameter(Mandatory = $true)]
-         [string]$OUName
+         [ValidateScript({
+            $parentou = Get-ADOrganizationalUnit -Filter "Name -eq '$_'"
+
+            if ($parentou -eq $null) {
+                throw "No OU matching this name found"
+            } elseif (($parentou.gettype()).Name -ne 'ADOrganizationalUnit') {
+                throw "More than one OU with this name"
+            } else { $true }
+         })]
+         [string]
+         $OUName
     )
 
     #Get parent OU
     $parentou = Get-ADOrganizationalUnit -Filter "Name -eq '$OUName'"
-
-    #Validate parent OU
-    if ($parentou -eq $null) {
-        throw "No OU matching this name found"
-    } elseif (($parentou.gettype()).Name -ne 'ADOrganizationalUnit') {
-        throw "More than one OU with this name"
-    }
 
     #Get sub OUs
     Show-SubOUs -OU $parentou -Indentation 1
