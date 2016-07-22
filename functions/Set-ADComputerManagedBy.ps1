@@ -1,10 +1,18 @@
 ﻿#helpre function
 function _createMenu {
     param (
-        [string]$Title,
-        [string]$Message,
-        [Microsoft.ActiveDirectory.Management.ADComputer[]]$Computers,
-        [Microsoft.ActiveDirectory.Management.ADUser]$User,
+        [string]
+        $Title,
+
+        [string]
+        $Message,
+
+        [Microsoft.ActiveDirectory.Management.ADComputer[]]
+        $Computers,
+
+        [Microsoft.ActiveDirectory.Management.ADUser]
+        $User,
+
         [PSCredential]$Credential
     )
 

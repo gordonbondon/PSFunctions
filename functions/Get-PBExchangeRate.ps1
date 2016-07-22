@@ -16,11 +16,12 @@ Converts USD to UAH and returns amount of UAH
 function Get-PBExchangeRate {
 	#[CmdletBinding()]
 	param(
-		#[Parameter(Mandatory=$true)]
-		[double]$Amount = 1.0,
+		[double]
+        $Amount = 1.0,
 
 		[ValidateSet('USD', 'EUR')]
-		[string]$Currency = 'USD'
+		[string]
+        $Currency = 'USD'
 	)
 
 	try

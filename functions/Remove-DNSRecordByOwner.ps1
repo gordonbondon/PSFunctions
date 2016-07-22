@@ -30,14 +30,21 @@ function Remove-DNSRecordByOwner {
     [CmdletBinding()]
     param(
         [Parameter(Position=0, Mandatory=$true)]
-        [string]$ZoneName,
+        [string]
+        $ZoneName,
+
         [Parameter(Position=1, Mandatory=$true)]
-        [string]$ZoneScope,
+        [string]
+        $ZoneScope,
+
         [Parameter(Position=2, ParameterSetName="Owner")]
-        [string]$Owner,
+        [string]
+        $Owner,
+
         [Parameter(Position=3, Mandatory=$false, ParameterSetName="Owner")]
         [Parameter(Position=2, Mandatory=$true, ParameterSetName="Self")]
-        [bool]$Self
+        [bool]
+        $Self
     )
     #prerequisites
     Import-Module -Name ActiveDirectory

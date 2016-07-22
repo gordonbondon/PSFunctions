@@ -14,10 +14,13 @@ function Get-DHCPLeaseByName {
     [CmdletBinding()]
     param (
          [Parameter(Mandatory=$true)]
-         [string]$Name,
+         [string]
+         $Name,
+
          [Parameter(Mandatory=$true)]
          [PSCredential]
-         [System.Management.Automation.CredentialAttribute()]$Credential
+         [System.Management.Automation.CredentialAttribute()]
+         $Credential
     )
 
     #Find first DHCP server

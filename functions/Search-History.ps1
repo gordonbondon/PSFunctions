@@ -3,9 +3,12 @@ function Search-History {
     [Cmdletbinding()]
     param(
         [Parameter(Mandatory=$false, Position=0)]
-        [string]$Regex,
+        [string]
+        $Regex,
+
         [Parameter(Mandatory=$false)]
-        [switch]$Full
+        [switch]
+        $Full
     )
     if (Get-Module PSReadline) {
         $commands = New-Object System.IO.StreamReader -ArgumentList (Get-PSReadlineOption).HistorySavePath

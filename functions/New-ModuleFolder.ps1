@@ -29,9 +29,12 @@ function New-FunctionFile {
                 throw "$_ uses not a valid Verb. Find a valid verb with Get-Verb and use it"
             }
         })]
-        [string]$FunctionName,
+        [string]
+        $FunctionName,
+
         [ValidateScript({Test-Path $_})]
-        [string]$Path = $pwd      
+        [string]
+        $Path = $pwd      
     )
 
     #get template file

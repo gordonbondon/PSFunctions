@@ -1,8 +1,11 @@
 #helper function
 function Show-SubOUs {
     param (
-        [Microsoft.ActiveDirectory.Management.ADOrganizationalUnit]$OU,
-        [int]$Indentation
+        [Microsoft.ActiveDirectory.Management.ADOrganizationalUnit]
+        $OU,
+
+        [int]
+        $Indentation
     )
 
     $count = $Indentation

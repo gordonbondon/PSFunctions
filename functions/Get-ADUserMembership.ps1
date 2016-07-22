@@ -3,7 +3,8 @@ function Get-ADUserMembership {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
-        [String]$SamAccountName
+        [String]
+        $SamAccountName
     )
 
     Begin {

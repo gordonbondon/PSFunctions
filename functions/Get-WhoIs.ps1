@@ -26,7 +26,8 @@ https://gallery.technet.microsoft.com/WHOIS-PowerShell-Function-ed69fde6
 Function Get-WhoIs {
 param (
         [Parameter(Mandatory=$True, HelpMessage='Please enter domain name')]
-        [string]$Domain
+        [string]
+        $Domain
         )
         
 Write-Output "Connecting to Web Services URL..."
