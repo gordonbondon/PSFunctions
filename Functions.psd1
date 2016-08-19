@@ -78,7 +78,8 @@ FunctionsToExport = 'Get-ADUserMembership',
                     'Search-History',
                     'Set-ADComputerManagedBy',
                     'New-FunctionFile',
-                    'Get-VISession'
+                    'Get-VISession',
+                    'Sync-GitHubFork'
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'
