@@ -20,11 +20,8 @@ Inspired by https://github.com/imagentleman/github-sync-fork-script/blob/master/
 #>
 function Sync-GitHubFork {
     [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
-    param(
-        [Parameter()]
-        [string]
-        $Path = $PWD.Path
-    )
+    param ()
+    $Path = $PWD.Path
 
     if (-not (Test-Path "$Path\.git")) {
         throw "$Path does not contain Git repository"
@@ -46,7 +43,7 @@ function Sync-GitHubFork {
     $apiuri = "https://api.github.com/repos/{0}/{1}" -f $user, $repo
     try {
         $repoinfo = Invoke-RestMethod -Method Get -Uri $apiuri
-    } catch [WebCmdletWebResponseException] {
+    } catch [System.Net.WebException] {
         throw "Error while requesting GitHub API"
     }
 
