@@ -11,13 +11,18 @@ Specify Computer name
 #>
 
 function Get-DHCPLeaseByName {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName='Name')]
     param (
-         [Parameter(Mandatory=$true)]
+         [Parameter(Mandatory=$true,Position=0,ParameterSetName='Name')]
          [string]
          $Name,
 
-         [Parameter(Mandatory=$true)]
+         [Parameter(Mandatory=$true,Position=0,ParameterSetName='MAC')]
+         [string]
+         $MAC,
+
+         [Parameter(Mandatory=$true,Position=1,ParameterSetName='Name')]
+         [Parameter(Mandatory=$true,Position=1,ParameterSetName='MAC')]
          [PSCredential]
          [System.Management.Automation.CredentialAttribute()]
          $Credential
@@ -38,10 +43,21 @@ function Get-DHCPLeaseByName {
     #Find scopes for this DHCP server
     $scopes = Get-DhcpServerv4Scope -CimSession $session
     #For each scope parse DHCP leases and find matching Name
-    foreach ($scope in $scopes) {
-        Get-DhcpServerv4Lease -CimSession $session -ScopeId $scope.ScopeId |
-            Where-Object {$_.HostName -match $Name} |
-            Select-Object HostName, IPAddress, AddressState, LeaseExpiryTime
+    switch ($PSCmdlet.ParameterSetName) {
+        'Name' {
+            foreach ($scope in $scopes) {
+                Get-DhcpServerv4Lease -CimSession $session -ScopeId $scope.ScopeId |
+                    Where-Object {$_.HostName -match $Name} |
+                    Select-Object HostName, IPAddress, ClientId, AddressState, LeaseExpiryTime
+            }
+        }
+        'MAC' {
+            foreach ($scope in $scopes) {
+                Get-DhcpServerv4Lease -CimSession $session -ScopeId $scope.ScopeId |
+                    Where-Object {$_.ClientID -match ($MAC -replace '[^a-zA-Z0-9]','' -replace '(..(?!$))','$1-')} |
+                    Select-Object HostName, IPAddress, ClientId, AddressState, LeaseExpiryTime
+            }
+        }
     }
     Remove-CimSession $session
 }; New-Alias -Name lease -Value Get-DHCPLeaseByname
