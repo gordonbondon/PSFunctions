@@ -79,9 +79,7 @@ FunctionsToExport = 'Get-ADUserMembership',
                     'Set-ADComputerManagedBy',
                     'New-FunctionFile',
                     'Get-VISession',
-                    'Sync-GitHubFork',
-                    'Get-ChromeProfile',
-                    'Open-ChromeProfile'
+                    'Sync-GitHubFork'
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'
