@@ -26,7 +26,7 @@ function Sync-GitHubFork {
     if (-not (Test-Path "$Path\.git")) {
         throw "$Path does not contain Git repository"
     }
-    
+
     Write-Verbose 'Getting current repo URL'
     $remote = invokeGit -Commands config, --get, remote.origin.url
     Write-Verbose "Current repo URL is: $remote"
@@ -35,7 +35,7 @@ function Sync-GitHubFork {
         throw "$remote is not a GitHub repo"
     }
 
-    #Get repo name and user name from SSH or HTTPS remote 
+    #Get repo name and user name from SSH or HTTPS remote
     $repo = $remote.Split(":/.")[-2]
     $user = $remote.Split(":/.")[-3]
 
@@ -73,7 +73,7 @@ function Sync-GitHubFork {
 
     Write-Verbose "Rebasing $branch branch"
     if ($PSCmdlet.ShouldProcess("Rebasing $branch branch")) {
-        invokeGit -Commands rebase, "upstream/$branch" 
+        invokeGit -Commands rebase, "upstream/$branch"
     }
 
     Write-Output "Perform 'git push origin $branch --force' after you've fixed all conflicts"
